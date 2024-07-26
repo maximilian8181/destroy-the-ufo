@@ -1,0 +1,116 @@
+int frames = 0;
+
+frames++;
+
+if(frames < 30) {
+    starfighter.pb = 0;
+    ufo.pb = 2;
+}
+else if(frames >= 30 && frames <= 60) {
+    starfighter.pb = 1;
+    ufo.pb = 3;
+}
+else {
+    frames = 0;
+}
+
+/*frames++;
+
+if(frames < 30) {				// animacion de numeros del score (temporal)
+    numberLabel.tid = 13;
+}
+else if(frames >= 30 && frames < 60) {
+    numberLabel.tid = 14;
+}
+else if(frames >= 60 && frames < 90) {
+    numberLabel.tid = 15;
+}
+else if(frames >= 90 && frames < 120) {
+    numberLabel.tid = 16;
+}
+else if(frames >= 120 && frames < 150) {
+    numberLabel.tid = 17;
+}
+else if(frames >= 150 && frames < 180) {
+    numberLabel.tid = 18;
+}
+else if(frames >= 180 && frames < 210) {
+    numberLabel.tid = 19;
+}
+else if(frames >= 210 && frames < 240) {
+    numberLabel.tid = 20;
+}
+else if(frames >= 240 && frames < 270) {
+    numberLabel.tid = 21;
+}
+else if(frames >= 270 && frames < 300) {
+    numberLabel.tid = 22;
+}
+else if(frames >= 300 && frames < 330) {
+    numberLabel.tid = 23;
+}
+else {
+    numberLabel.tid = 13;
+    frames = 0;
+}*/
+
+if(detectCollision(&starfighter, &ufo)) {
+		collision_switch = 1;
+		score = score + 1;
+	}
+	else {
+		collision_switch = 0;
+	}
+
+	if(collision_switch != 1) {
+		starfighter.pb = 0;
+		ufo.pb = 2;
+	}
+	else {
+		starfighter.pb = 1;
+		ufo.pb = 3;
+	}
+
+frames3++;
+
+	if(frames3 <= 30) {						// animacion del fondo (transicion de colores)
+		pal_bg_bank[0][1] = RGB15(frames3, 0, 0);
+	}
+	else if(frames3 <= 60) {
+		pal_bg_bank[0][1] = RGB15(30, frames3 - 30, 0);
+	}
+	else if(frames3 <= 90) {
+		pal_bg_bank[0][1] = RGB15(30 - (frames3 - 60), 30, 0);
+	}
+	else if(frames3 <= 120) {
+		pal_bg_bank[0][1] = RGB15(0, 30, frames3 - 90);
+	}
+	else if(frames3 <= 150) {
+		pal_bg_bank[0][1] = RGB15(0, 30 - (frames3 - 120), 30);
+	}
+	else if(frames3 <= 180) {
+		pal_bg_bank[0][1] = RGB15(frames3 - 150, 0, 30);
+	}
+	else if(frames3 <= 210) {
+		pal_bg_bank[0][1] = RGB15(30, 0, 30 - (frames3 - 180));
+	}
+	else if(frames3 <= 240) {
+		pal_bg_bank[0][1] = RGB15(31 - (frames3 - 210), 0, 0);
+	}
+	else {
+		pal_bg_bank[0][1] = RGB15(0, 0, 0);
+		frames3 = 0;
+	}
+
+frames2++;
+
+	if(frames2 < 5) {		// transicion entre las dos paletas de colores del sprite (efecto de intermitencia)
+		o->pb = 4;
+	}
+	else if(frames2 >= 5 && frames2 < 10) {
+		o->pb = 5;
+	}
+	else {
+		o->pb = 4;
+		frames2 = 0;
+	}
